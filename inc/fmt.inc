@@ -1,5 +1,5 @@
 ; rdi: file descriptor
-; rsi: char *buf (null terminated)
+; rsi: char* buf (null terminated)
 fprint:
 	mov rax, 1
 	call strlen
