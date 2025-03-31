@@ -13,9 +13,9 @@ _start:
 	cmp QWORD [argc], 1
 	je no_arguments
 
-	mov rsi, [argv]
-	mov rdi, STDOUT_FILENO
-	call fprint
+	mov r15, [argv]
+	mov r14, help
+	call strcmp
 
 	mov rdi, 0
 exit:
@@ -23,4 +23,6 @@ exit:
 	syscall
 
 argc rq 1
-argv rq 1	
+argv rq 1
+
+help db "-h"	
