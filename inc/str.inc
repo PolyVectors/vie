@@ -40,8 +40,8 @@ strcmp:
 	inc r12
 	jmp .check_character
 .equal:
-	mov r13, 1
+	mov r13, 0
 	ret
 .not_equal:
-	mov r13, 0
+	mov r13, 1
 	ret

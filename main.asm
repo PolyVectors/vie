@@ -14,15 +14,28 @@ _start:
 	je no_arguments
 
 	mov r15, [argv]
-	mov r14, help
+	mov r14, help_short
 	call strcmp
+	cmp r13, 0
+	je help
 
-	mov rdi, 0
+	mov r14, help_long
+	call strcmp
+	cmp r13, 0
+	je help
 exit:
 	mov rax, 60
 	syscall
+help:
+	mov rsi, help_text
+	mov rdi, STDOUT_FILENO
+	call fprint
+
+	jmp exit
 
 argc rq 1
 argv rq 1
 
-help db "-h"	
+help_short db "-h", 0
+help_long db "--help", 0
+help_text db "usage:", 10,  9, "vie <source> <out>", 10, "options:", 10, 9, "-h --help    show this screen", 10, 0
