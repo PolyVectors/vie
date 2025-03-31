@@ -30,7 +30,8 @@ help:
 	mov rsi, help_text
 	mov rdi, STDOUT_FILENO
 	call fprint
-
+	
+	mov rdi, 0
 	jmp exit
 
 argc rq 1
