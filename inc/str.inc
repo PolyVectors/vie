@@ -1,7 +1,6 @@
 ; rsi: char* buf (null terminated)
 ; rdx: int length
 
-; TODO: look into repne instruction
 strlen:
 	xor rdx, rdx
 .get_length:
@@ -17,7 +16,6 @@ strlen:
 ; r14: char* buf2 (null terminated)
 ; r13: bool equal
 
-; TODO ditto
 strcmp:
 	mov rsi, r15
 	call strlen
@@ -32,8 +30,8 @@ strcmp:
 
 	xor r12, r12
 .check_character:
-	mov al, [r14 + r12]
-	cmp BYTE [r15 + r12], al
+	mov r11b, [r14 + r12]
+	cmp BYTE [r15 + r12], r11b
 	jne .not_equal
 
 	cmp r12, rdx
