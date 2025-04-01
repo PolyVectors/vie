@@ -1,6 +1,7 @@
 ; rsi: char* buf (null terminated)
 ; rdx: int length
 
+; TODO: look into repne instruction
 strlen:
 	xor rdx, rdx
 .get_length:
@@ -16,6 +17,7 @@ strlen:
 ; r14: char* buf2 (null terminated)
 ; r13: bool equal
 
+; TODO ditto
 strcmp:
 	mov rsi, r15
 	call strlen
