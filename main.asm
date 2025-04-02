@@ -4,6 +4,7 @@ entry _start
 include 'inc/fmt.inc'
 include 'inc/err.inc'
 include 'inc/str.inc'
+include 'inc/sys.inc'
 
 _start:
 	pop [argc]
@@ -29,16 +30,24 @@ _start:
 	mov rax, 2
 	mov rdi, [argv]
 	mov rsi, O_RDONLY
-	mov rdx, 0444 ; read only? (might be doing this wrong)
+	mov rdx, 0644 ; read and write? (might be doing this wrong)
 	syscall
-
-	cmp rax, 0
+	mov r15, rax
+	
+	cmp r15, 0
 	jl no_file
 
-	mov rdi, rax
-	mov rax, 3
-	syscall
+	mov rdi, 1024
+	call malloc
+	mov r14, rax
 
+	; TODO: write file to buffer
+	; 		free memory
+
+	mov rax, 3
+	mov rdi, r15
+	syscall
+	
 	jmp bad_usage
 help:
 	mov rsi, _help_text
