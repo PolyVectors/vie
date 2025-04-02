@@ -29,21 +29,27 @@ _start:
 
 	mov rax, 2
 	mov rdi, [argv]
-	mov rsi, O_RDONLY
+	mov rsi, O_RDWR
 	mov rdx, 0644 ; read and write? (might be doing this wrong)
 	syscall
-	mov r15, rax
+	mov r8, rax
 	
 	cmp r15, 0
 	jl no_file
 
 	; TODO: get length with lseek
-	;		create buffer with mmap
-	;		write file to buffer
 	; 		free memory
 
+	mov rdi, 2048
+	call malloc
+	mov r14, rax
+
+	mov rdi, STDOUT_FILENO
+	mov rsi, r14
+	call fprint
+
 	mov rax, 3
-	mov rdi, r15
+	mov rdi, r8
 	syscall
 	
 	jmp bad_usage

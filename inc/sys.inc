@@ -1,6 +1,16 @@
 ; rdi: size_t len
+; r8: file descriptor
 ; rax: char* buf
+
 malloc:
+	mov rax, 9
+	mov rsi, rdi
+	xor rdi, rdi
+	mov rdx, PROT_READ
+	or rdx, PROT_WRITE
+	mov r10, MAP_SHARED
+	xor r9, r9
+	syscall
 	ret
 
 ; rsi: unsigned long addr
@@ -11,5 +21,4 @@ free:
 PROT_READ = 01
 PROT_WRITE = 02
 
-MAP_PRIVATE = 01
-MAP_ANONYMOUS = 02
+MAP_SHARED = 01

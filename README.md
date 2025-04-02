@@ -10,6 +10,7 @@ i want to:
 # notes
 - look into string instructions e.g. `rep scasb`
 - try to optimise `strcmp` implementation
+- `strace` is an amazing tool
 
 # usage
 ```
