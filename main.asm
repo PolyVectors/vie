@@ -37,11 +37,9 @@ _start:
 	cmp r15, 0
 	jl no_file
 
-	mov rdi, 1024
-	call malloc
-	mov r14, rax
-
-	; TODO: write file to buffer
+	; TODO: get length with lseek
+	;		create buffer with mmap
+	;		write file to buffer
 	; 		free memory
 
 	mov rax, 3

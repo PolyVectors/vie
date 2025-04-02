@@ -1,20 +1,11 @@
-; rdi: size_t length
+; rdi: size_t len
 ; rax: char* buf
-
 malloc:
-	mov rax, 9
-	mov rsi, r15
-	mov rdx, PROT_READ
-	or rdx, PROT_WRITE
-	mov r10, MAP_PRIVATE
-	or r10, MAP_ANONYMOUS
-	mov r8, -1
-	mov r9, 0
-	syscall
 	ret
 
+; rsi: unsigned long addr
+; rdx: size_t len
 free:
-	; TODO: implement with munmap (man 2 munmap)
 	ret
 
 PROT_READ = 01
