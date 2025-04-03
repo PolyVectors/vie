@@ -1,7 +1,7 @@
 format ELF64 executable 3
 entry _start
 
-include 'inc/fmt.inc'
+include 'inc/io.inc'
 include 'inc/err.inc'
 include 'inc/str.inc'
 include 'inc/sys.inc'
@@ -27,30 +27,29 @@ _start:
 	cmp r13, 0
 	je help
 
-	mov rax, 2
 	mov rdi, [argv]
 	mov rsi, O_RDWR
-	mov rdx, 0644 ; read and write? (might be doing this wrong)
-	syscall
+	mov rdx, RW_R__R__
+	call fopen
 	mov r8, rax
-	
-	cmp r15, 0
-	jl no_file
 
 	; TODO: get length with lseek
 	; 		free memory
 
 	mov rdi, 2048
-	call malloc
+	call falloc
 	mov r14, rax
 
 	mov rdi, STDOUT_FILENO
 	mov rsi, r14
 	call fprint
 
-	mov rax, 3
+	; xor rsi, rsi
+	; mov rdx, 2048
+	; call free ; causes invalid argument error
+
 	mov rdi, r8
-	syscall
+	call fclose
 	
 	jmp bad_usage
 help:

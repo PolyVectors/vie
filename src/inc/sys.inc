@@ -2,7 +2,7 @@
 ; r8: file descriptor
 ; rax: char* buf
 
-malloc:
+falloc:
 	mov rax, 9
 	mov rsi, rdi
 	xor rdi, rdi
@@ -16,6 +16,8 @@ malloc:
 ; rsi: unsigned long addr
 ; rdx: size_t len
 free:
+	mov rax, 11
+	syscall
 	ret
 
 PROT_READ = 01
