@@ -1,6 +1,5 @@
 ; rsi: char* buf (null terminated)
 ; rdx: int length
-
 strlen:
 	xor rdx, rdx
 .get_length:
@@ -15,7 +14,6 @@ strlen:
 ; r15: char* buf (null terminated)
 ; r14: char* buf2 (null terminated)
 ; r13: bool equal
-
 strcmp:
 	mov rsi, r15
 	call strlen

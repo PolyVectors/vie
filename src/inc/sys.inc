@@ -13,14 +13,28 @@ falloc:
 	syscall
 	ret
 
-; rsi: unsigned long addr
-; rdx: size_t len
+; rdi: unsigned long addr
+; rsi: size_t len
 free:
 	mov rax, 11
 	syscall
 	ret
 
+; rdi: fd
+; rsi: offset
+; rdx: origin
+fseek:
+	mov rax, 8
+	syscall
+	cmp rax, 0
+	jl bad_usage
+	ret
+	
+
 PROT_READ = 01
 PROT_WRITE = 02
 
 MAP_SHARED = 01
+
+SEEK_SET = 00
+SEEK_END = 02

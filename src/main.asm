@@ -33,20 +33,22 @@ _start:
 	call fopen
 	mov r8, rax
 
-	; TODO: get length with lseek
-	; 		free memory
+	mov rdi, r8
+	mov rsi, SEEK_END
+	mov rdx, 0
+	call fseek
+	mov r15, rax
 
-	mov rdi, 2048
+	mov rsi, SEEK_SET
+	call fseek
+
+	mov rdi, r15
 	call falloc
 	mov r14, rax
 
-	mov rdi, STDOUT_FILENO
-	mov rsi, r14
-	call fprint
-
-	; xor rsi, rsi
-	; mov rdx, 2048
-	; call free ; causes invalid argument error
+	mov rdi, r14
+	mov rsi, r15
+	call free
 
 	mov rdi, r8
 	call fclose
