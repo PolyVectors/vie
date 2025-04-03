@@ -11,6 +11,9 @@ i want to:
 - look into string instructions e.g. `rep scasb`
 - try to optimise `strcmp` implementation
 - `strace` is an amazing tool
+- rename `fmt` to `io`
+- rename `malloc` to `falloc`, `fgets` or similar
+- add `lseek` and `fopen` procedures to `sys`
 
 # usage
 ```
