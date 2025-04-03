@@ -17,12 +17,12 @@ _start:
 	jge too_many_arguments
 
 	mov r15, [argv]
-	mov r14, _help_short
+	lea r14, [_help_short]
 	call strcmp
 	cmp r13, 0
 	je help
 
-	mov r14, _help_long
+	lea r14, [_help_long]
 	call strcmp
 	cmp r13, 0
 	je help
@@ -55,7 +55,7 @@ _start:
 	
 	jmp bad_usage
 help:
-	mov rsi, _help_text
+	lea rsi, [_help_text]
 	mov rdi, STDOUT_FILENO
 	call fprint
 
