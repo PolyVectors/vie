@@ -12,6 +12,7 @@ i want to:
 - try to optimise `strcmp` implementation
 - `strace` is an amazing tool
 - make all procedures take arguments from `rax`
+- add `src/assembler.inc` that handles writing to new buffer with machine code then writing to disk
 
 # usage
 ```
