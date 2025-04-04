@@ -9,10 +9,10 @@ i want to:
 
 # notes
 - look into string instructions e.g. `rep scasb`
-- try to optimise `strcmp` implementation
+- try to optimise `strcmp`, `strlwr`, and `strcmp` implementations
 - `strace` is an amazing tool
-- make all procedures take arguments in standard x86_64 calling order `rdi, rsi, rdx, rcx, r8, r9, r10`
 - add `src/assembler.inc` that handles writing to new buffer with machine code then writing to disk
+- try to make procedures mutate as few registers as possible
 
 # usage
 ```

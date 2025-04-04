@@ -38,10 +38,11 @@ _start:
 	call fseek
 
 	mov rdi, r15
+	mov rsi, r8
 	call falloc
 	mov r14, rax
 
-	lea rax, [r14]
+	lea rdi, [r14]
 	call strlwr
 
 	mov rdi, STDOUT_FILENO

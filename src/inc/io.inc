@@ -1,8 +1,12 @@
 ; rdi: file descriptor
 ; rsi: char* buf (null terminated)
 fprint:
-	mov rax, 1
+	push rdi
+	mov rdi, rsi
 	call strlen
+	pop rdi
+	mov rdx, rax
+	mov rax, 1
 	syscall
 	ret
 

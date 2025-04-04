@@ -1,8 +1,8 @@
 ; rdi: size_t len
-; r8: file descriptor
+; rsi: file descriptor
 ; rax: char* buf
-
 falloc:
+	push rsi
 	mov rax, 9
 	mov rsi, rdi
 	xor rdi, rdi
@@ -10,6 +10,7 @@ falloc:
 	or rdx, PROT_WRITE
 	mov r10, MAP_SHARED
 	xor r9, r9
+	pop r8
 	syscall
 	ret
 

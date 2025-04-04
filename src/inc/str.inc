@@ -1,12 +1,12 @@
-; rsi: char* buf (null terminated)
-; rdx: int len
+; rdi: char* buf (null terminated)
+; rax: int len
 strlen:
-	xor rdx, rdx
+	xor rax, rax
 .get_length:
-	cmp BYTE [rsi + rdx], 0
+	cmp BYTE [rdi + rax], 0
 	je .after_get_length
 
-	inc rdx
+	inc rax
 	jmp .get_length
 .after_get_length:
 	ret
@@ -14,16 +14,17 @@ strlen:
 ; rdi: char* buf (null terminated)
 ; rsi: char* buf2 (null terminated)
 ; rax: bool equal
+; mutates r13, r12, and r11b
 strcmp:
-	push rsi
-	lea rsi, [rdi]
+	lea rdi, [rdi]
 	call strlen
-	mov r13, rdx
-	pop rsi
-	
-	lea rsi, [rsi]
+	mov r13, rax
+
+	push rdi
+	lea rdi, [rsi]
 	call strlen
-	mov r12, rdx
+	mov r12, rax
+	pop rdi
 
 	cmp r13, r12
 	jne .not_equal
@@ -46,23 +47,20 @@ strcmp:
 	mov rax, 1
 	ret
 
-; rax: char* buf (null terminated)
+; rdi: char* buf (null terminated)
+; mutates rsi
 strlwr:
-	xor rdi, rdi
+	xor rsi, rsi
 .lower_character:
-	cmp BYTE [rax +rdi], 0
+	cmp BYTE [rdi + rsi], 0
 	je .after_lower_character
 
-	cmp BYTE [rax + rdi], 'A'
+	cmp BYTE [rdi + rsi], 'A'
 	jl .continue
-
-	cmp BYTE [rax + rdi], 'Z'
+	cmp BYTE [rdi + rsi], 'Z'
 	jg .continue
 
-	mov sil, [rax + rdi]
-	add sil, 32
-	mov BYTE [rax + rdi], sil
-
+	add BYTE [rdi + rsi], 32
 .continue:
 	inc rdi
 	jmp .lower_character
