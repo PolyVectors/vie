@@ -19,7 +19,7 @@ _start:
 
 	lea r14, [_help_long]
 	call strcmp
-	cmp r13, 0
+	cmp rsi, 0
 	je help
 
 	mov rdi, [argv]
