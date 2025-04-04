@@ -38,8 +38,31 @@ strcmp:
 	inc r12
 	jmp .check_character
 .equal:
-	mov r13, 0
+	mov rsi, 0
 	ret
 .not_equal:
-	mov r13, 1
+	mov rsi, 1
+	ret
+
+; rax: char* buf (null terminated)
+strlwr:
+	xor rdi, rdi
+.lower_character:
+	cmp BYTE [rax +rdi], 0
+	je .after_lower_character
+
+	cmp BYTE [rax + rdi], 'A'
+	jl .continue
+
+	cmp BYTE [rax + rdi], 'Z'
+	jg .continue
+
+	mov sil, [rax + rdi]
+	add sil, 32
+	mov BYTE [rax + rdi], sil
+
+.continue:
+	inc rdi
+	jmp .lower_character
+.after_lower_character:
 	ret

@@ -11,6 +11,7 @@ i want to:
 - look into string instructions e.g. `rep scasb`
 - try to optimise `strcmp` implementation
 - `strace` is an amazing tool
+- make all procedures take arguments from `rax`
 
 # usage
 ```

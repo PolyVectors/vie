@@ -1,11 +1,6 @@
 format ELF64 executable 3
 entry _start
 
-include 'inc/io.inc'
-include 'inc/err.inc'
-include 'inc/str.inc'
-include 'inc/sys.inc'
-
 _start:
 	pop [argc]
 	add rsp, 8
@@ -19,7 +14,7 @@ _start:
 	mov r15, [argv]
 	lea r14, [_help_short]
 	call strcmp
-	cmp r13, 0
+	cmp rsi, 0
 	je help
 
 	lea r14, [_help_long]
@@ -46,6 +41,13 @@ _start:
 	call falloc
 	mov r14, rax
 
+	lea rax, [r14]
+	call strlwr
+
+	mov rdi, STDOUT_FILENO
+	mov rsi, rax
+	call fprint
+
 	mov rdi, r14
 	mov rsi, r15
 	call free
@@ -64,6 +66,11 @@ help:
 exit:
 	mov rax, 60
 	syscall
+
+include 'inc/io.inc'
+include 'inc/err.inc'
+include 'inc/str.inc'
+include 'inc/sys.inc'
 
 argc rq 1
 argv rq 1
