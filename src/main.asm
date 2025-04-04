@@ -11,15 +11,15 @@ _start:
 	cmp QWORD [argc], 4
 	jge too_many_arguments
 
-	mov rax, [argv]
-	lea rdi, [_help_short]
+	mov rdi, [argv]
+	lea rsi, [_help_short]
 	call strcmp
-	cmp rsi, 0
+	cmp rax, 0
 	je help
 
-	lea rdi, [_help_long]
+	lea rsi, [_help_long]
 	call strcmp
-	cmp rsi, 0
+	cmp rax, 0
 	je help
 
 	mov rdi, [argv]
