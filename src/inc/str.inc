@@ -11,15 +11,15 @@ strlen:
 .after_get_length:
 	ret
 
-; r15: char* buf (null terminated)
-; r14: char* buf2 (null terminated)
-; r13: bool equal
+; rax: char* buf (null terminated)
+; rdi: char* buf2 (null terminated)
+; rsi: bool equal
 strcmp:
-	lea rsi, [r15]
+	lea rsi, [rax]
 	call strlen
 	mov r13, rdx
 
-	lea rsi, [r14]
+	lea rsi, [rdi]
 	call strlen
 	mov r12, rdx
 
@@ -28,8 +28,8 @@ strcmp:
 
 	xor r12, r12
 .check_character:
-	mov r11b, [r14 + r12]
-	cmp BYTE [r15 + r12], r11b
+	mov r11b, [rdi + r12]
+	cmp BYTE [rax + r12], r11b
 	jne .not_equal
 
 	cmp r12, rdx
