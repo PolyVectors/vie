@@ -1,6 +1,3 @@
-#!/usr/bin/env bash
-fasm src/main.asm vie
-
 declare -a args=("tests/test.asm" "-h" "--help")
 
 for arg in "${args[@]}"
