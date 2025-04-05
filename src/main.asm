@@ -68,10 +68,11 @@ exit:
 	mov rax, 60
 	syscall
 
-include 'inc/io.inc'
-include 'inc/err.inc'
-include 'inc/str.inc'
-include 'inc/sys.inc'
+include 'lib/io.inc'
+include 'lib/err.inc'
+include 'lib/str.inc'
+include 'lib/sys.inc'
+include 'assemble.inc'
 
 argc rq 1
 argv rq 1
