@@ -29,8 +29,8 @@ _start:
 	mov r8, rax
 
 	mov rdi, r8
-	mov rsi, SEEK_END
-	mov rdx, 0
+	mov rsi, 0
+	mov rdx, SEEK_END
 	call fseek
 	mov r15, rax
 
@@ -44,9 +44,13 @@ _start:
 
 	lea rdi, [r14]
 	call strlwr
+	
+	lea rdi, [r14]
+	mov rsi, r15
+	call strip_comments
 
 	mov rdi, STDOUT_FILENO
-	mov rsi, rax
+	lea rsi, [r14]
 	call fprint
 
 	mov rdi, r14

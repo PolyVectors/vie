@@ -62,7 +62,7 @@ strlwr:
 
 	add BYTE [rdi + rsi], 32
 .continue:
-	inc rdi
+	inc rsi
 	jmp .lower_character
 .after_lower_character:
 	ret

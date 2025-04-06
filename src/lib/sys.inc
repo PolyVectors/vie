@@ -8,7 +8,7 @@ falloc:
 	xor rdi, rdi
 	mov rdx, PROT_READ
 	or rdx, PROT_WRITE
-	mov r10, MAP_SHARED
+	mov r10, MAP_PRIVATE
 	xor r9, r9
 	pop r8
 	syscall
@@ -35,6 +35,8 @@ fseek:
 PROT_READ = 01
 PROT_WRITE = 02
 
+MAP_PRIVATE = 02
+MAP_ANONYMOUS = 10
 MAP_SHARED = 01
 
 SEEK_SET = 00
