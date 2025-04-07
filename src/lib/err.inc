@@ -12,11 +12,11 @@ no_file:
 	jmp fatal_error
 
 fatal_error:
-	mov rdi, STDERR_FILENO
+	mov edi, STDERR_FILENO
 	mov rsi, [rsp]
 	call fprint
 
-	mov rdi, 1
+	mov edi, 1
 	jmp exit
 
 _no_arguments db "error: no arguments provided", 10, 0

@@ -6,7 +6,7 @@ fprint:
 	call strlen
 	pop rdi
 	mov rdx, rax
-	mov rax, 1
+	mov eax, 1
 	syscall
 	ret
 
@@ -14,15 +14,15 @@ fprint:
 ; rsi: flags
 ; rdx: permissions
 fopen:
-	mov rax, 2
+	mov eax, 2
 	syscall
-	cmp rax, 0
+	cmp eax, 0
 	jl no_file
 	ret
 
 ; rdi: fd
 fclose:
-	mov rax, 3
+	mov eax, 3
 	syscall
 	ret
 

@@ -1,7 +1,7 @@
 ; rdi: char* buf (null terminated)
 ; rax: int len
 strlen:
-	xor rax, rax
+	xor eax, eax
 .get_length:
 	cmp BYTE [rdi + rax], 0
 	je .after_get_length
@@ -41,16 +41,16 @@ strcmp:
 	inc r12
 	jmp .check_character
 .equal:
-	mov rax, 0
+	mov eax, 0
 	ret
 .not_equal:
-	mov rax, 1
+	mov eax, 1
 	ret
 
 ; rdi: char* buf (null terminated)
 ; mutates rsi
 strlwr:
-	xor rsi, rsi
+	xor esi, esi
 .lower_character:
 	cmp BYTE [rdi + rsi], 0
 	je .after_lower_character
@@ -62,7 +62,7 @@ strlwr:
 
 	add BYTE [rdi + rsi], 32
 .continue:
-	inc rsi
+	inc esi
 	jmp .lower_character
 .after_lower_character:
 	ret

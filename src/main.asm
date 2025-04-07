@@ -14,7 +14,7 @@ _start:
 	mov rdi, [argv]
 	lea rsi, [_help_short]
 	call strcmp
-	cmp rax, 0
+	cmp eax, 0
 	je help
 
 	lea rsi, [_help_long]
@@ -29,8 +29,8 @@ _start:
 	mov r8, rax
 
 	mov rdi, r8
-	mov rsi, 0
-	mov rdx, SEEK_END
+	mov esi, 0
+	mov edx, SEEK_END
 	call fseek
 	mov r15, rax
 
@@ -67,13 +67,13 @@ _start:
 	jmp bad_usage
 help:
 	lea rsi, [_help_text]
-	mov rdi, STDOUT_FILENO
+	mov edi, STDOUT_FILENO
 	call fprint
 
-	mov rdi, 0
+	mov edi, 0
 	jmp exit
 exit:
-	mov rax, 60
+	mov eax, 60
 	syscall
 
 include 'lib/io.inc'

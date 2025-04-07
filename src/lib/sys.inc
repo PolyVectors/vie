@@ -3,13 +3,13 @@
 ; rax: char* buf
 falloc:
 	push rsi
-	mov rax, 9
+	mov eax, 9
 	mov rsi, rdi
 	xor rdi, rdi
-	mov rdx, PROT_READ
-	or rdx, PROT_WRITE
-	mov r10, MAP_PRIVATE
-	xor r9, r9
+	mov edx, PROT_READ
+	or edx, PROT_WRITE
+	mov r10d, MAP_PRIVATE
+	xor r9d, r9d
 	pop r8
 	syscall
 	ret
@@ -17,7 +17,7 @@ falloc:
 ; rdi: unsigned long addr
 ; rsi: size_t len
 free:
-	mov rax, 11
+	mov eax, 11
 	syscall
 	ret
 
@@ -25,9 +25,9 @@ free:
 ; rsi: offset
 ; rdx: origin
 fseek:
-	mov rax, 8
+	mov eax, 8
 	syscall
-	cmp rax, 0
+	cmp eax, 0
 	jl bad_usage
 	ret
 	
