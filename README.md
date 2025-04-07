@@ -13,8 +13,9 @@ i want to:
 - `strace` is an amazing tool
 - add `src/assembler.inc` that handles writing to new buffer with machine code then writing to disk
 - try to make procedures mutate as few registers as possible
+- consider using more 32 bit registers to avoid extra bytes with REX prefix
 
-# usage
+ usage
 ```
 vie <source> <out>
 

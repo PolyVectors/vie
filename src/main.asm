@@ -53,6 +53,10 @@ _start:
 	mov rsi, r15
 	call traverse
 
+	mov rdi, STDOUT_FILENO
+	lea rsi, [r14]
+	call fprint
+
 	mov rdi, r14
 	mov rsi, r15
 	call free
