@@ -1,0 +1,9 @@
+rule cc
+  command = fasm $in $out
+rule run_script
+  command = bash $in
+
+build vie: cc src/main.asm 
+build test: run_script scripts/test.sh
+
+default vie
