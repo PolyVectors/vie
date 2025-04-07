@@ -41,19 +41,23 @@ hex_to_byte:
 	mov rsi, 0
 .convert:
 	cmp BYTE [rdi + rsi], 'a'
+	movzx rdx, BYTE [rdi + rsi]
 	jl .convert_number
 
 .convert_character:
-	movzx rdx, BYTE [rdi + rsi]
 	lea rdx, [rdx - 87]
+	jmp .set_place_value
+.convert_number:
+	lea rdx, [rdx - 48]
+	jmp .set_place_value
+.set_place_value:
 	cmp rsi, 0
 	jne .after_conversion
 	imul rdx, rdx, 16
 	jmp .after_conversion
-.convert_number:
-
 .after_conversion:
 	lea rax, [rax + rdx]
+
 	cmp rsi, 1
 	je .return
 	mov rsi, 1
