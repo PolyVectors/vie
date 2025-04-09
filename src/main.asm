@@ -37,6 +37,7 @@ _start:
 	mov rsi, SEEK_SET
 	call fseek
 
+	push r8
 	mov rdi, r15
 	mov rsi, r8
 	call falloc
@@ -44,23 +45,33 @@ _start:
 
 	lea rdi, [r14]
 	call strlwr
-	
+
 	lea rdi, [r14]
 	mov rsi, r15
 	call strip_comments
 
+	mov rdi, r15
+	call malloc
+	mov r13, rax
+
 	lea rdi, [r14]
-	mov rsi, r15
+	lea rsi, [r13]
+	mov rdx, r15
 	call traverse
 
 	mov rdi, STDOUT_FILENO
-	lea rsi, [r14]
+	lea rsi, [r13]
 	call fprint
+
+	mov rdi, r13
+	mov rsi, r15
+	call free
 
 	mov rdi, r14
 	mov rsi, r15
 	call free
 
+	pop r8
 	mov rdi, r8
 	call fclose
 	

@@ -38,6 +38,7 @@ strip_comments:
 ; mutates rsi, rdx
 hex_to_byte:
 	xor rax, rax
+	xor rdx, rdx
 	mov rsi, 0
 .convert:
 	cmp BYTE [rdi + rsi], 'a'
@@ -63,33 +64,45 @@ hex_to_byte:
 	mov rsi, 1
 	jmp .convert
 .return:
+	inc [bytes_converted]
 	ret	
 
 ; rdi: char* buf (null terminated)
-; rsi: int len
+; rsi: void* buf
+; rdx: int len
 traverse:
-	xor rdx, rdx
+	xor rcx, rcx
+	xor r8, r8
 .check_character:
-	cmp rdx, rsi
+	cmp rcx, rdx
 	jge .after_check_character
 
-	cmp BYTE [rdi + rdx], ' '
+	cmp BYTE [rdi + rcx], ' '
 	je .continue
-	cmp BYTE [rdi + rdx], 10
+	cmp BYTE [rdi + rcx], 10
 	je .continue
 
 	; todo: put hex to byte procedure here
 	;		write results of procedure to new buffer
 	;		write new buffer to specified output file (argv[3])
 	push rdi
-	lea rdi, [rdi + rdx]
+	push rdx
+	push rsi
+	lea rdi, [rdi + rcx]
 	call hex_to_byte
+	pop rsi
+	movzx r9, [bytes_converted]
+	mov BYTE [rsi + r9 - 1], al
+	pop rdx
 	pop rdi
 
 	; if there isn't another byte after this throw an error as hex should be two consecutive integers
-	inc rdx
+	inc rcx
 .continue:
-	inc rdx
+	inc rcx
+	inc r8
 	jmp .check_character
 .after_check_character:
 	ret
+
+bytes_converted rb 1
