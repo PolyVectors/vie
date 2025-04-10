@@ -57,7 +57,6 @@ _start:
 	mov rdi, [argv]
 	call strlen
 	
-
 	mov rdi, [argv]
 	lea rdi, [rdi + rax + 1]
 	mov rsi, O_WRONLY
