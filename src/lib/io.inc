@@ -36,4 +36,5 @@ O_RDWR = 02
 
 O_CREAT = 100o
 
-RW_R__R__ = 644
+RW_R__R__ = 644o
+RWXR__R__ = 744o

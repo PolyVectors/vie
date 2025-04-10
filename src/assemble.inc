@@ -82,9 +82,7 @@ traverse:
 	cmp BYTE [rdi + rcx], 10
 	je .continue
 
-	; todo: put hex to byte procedure here
-	;		write results of procedure to new buffer
-	;		write new buffer to specified output file (argv[3])
+	; todo: write new buffer to specified output file (argv[3])
 	push rdi
 	push rdx
 	push rsi

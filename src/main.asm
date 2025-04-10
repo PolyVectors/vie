@@ -6,8 +6,8 @@ _start:
 	add rsp, 8
 	pop [argv]
 	
-	cmp QWORD [argc], 1
-	je no_arguments
+	cmp QWORD [argc], 2
+	je few_arguments
 	cmp QWORD [argc], 4
 	jge too_many_arguments
 
@@ -54,10 +54,25 @@ _start:
 	call malloc
 	mov r13, rax
 
+	mov rdi, [argv]
+	call strlen
+	
+
+	mov rdi, [argv]
+	lea rdi, [rdi + rax + 1]
+	mov rsi, O_WRONLY
+	or rsi, O_CREAT
+	mov rdx, RWXR__R__
+	call fopen
+	push rax
+
 	lea rdi, [r14]
 	lea rsi, [r13]
 	mov rdx, r15
 	call traverse
+
+	pop rdi
+	call fclose
 
 	mov rdi, STDOUT_FILENO
 	lea rsi, [r13]
@@ -82,7 +97,6 @@ help:
 	call fprint
 
 	mov edi, 0
-	jmp exit
 exit:
 	mov eax, 60
 	syscall
