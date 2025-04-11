@@ -10,10 +10,6 @@ i want to:
 # notes
 - look into string instructions e.g. `rep scasb`
 - try to optimise `strcmp`, `strlwr`, and `strcmp` implementations
-- `strace` is an amazing tool
-- add `src/assembler.inc` that handles writing to new buffer with machine code then writing to disk
-- try to make procedures mutate as few registers as possible
-- consider using more 32 bit registers to avoid extra bytes with REX prefix
 - look into using a justfile
 - learn about and maybe implement SIMD
 - simplify _start

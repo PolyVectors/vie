@@ -2,8 +2,8 @@
 ; rsi: int len
 ; mutates rdx, rcx
 strip_comments:
-	xor rdx, rdx
-	mov rcx, 1
+	xor edx, edx
+	mov ecx, 1
 .check_character:
 	cmp rdx, rsi
 	jge .after_check_character
@@ -19,16 +19,16 @@ strip_comments:
 	mov rcx, 0
 	jmp .after_in_comment_line
 .in_comment_line_false:
-	mov rcx, 1
+	mov ecx, 1
 
 .after_in_comment_line:
-	cmp rcx, 1
+	cmp ecx, 1
 	je .continue
 
 	mov BYTE [rdi + rdx], ' '
 
 .continue:
-	inc rdx
+	inc edx
 	jmp .check_character
 .after_check_character:
 	ret
@@ -39,7 +39,7 @@ strip_comments:
 hex_to_byte:
 	xor rax, rax
 	xor rdx, rdx
-	mov rsi, 0
+	mov esi, 0
 .convert:
 	cmp BYTE [rdi + rsi], 'a'
 	movzx rdx, BYTE [rdi + rsi]
@@ -59,9 +59,9 @@ hex_to_byte:
 .after_conversion:
 	lea rax, [rax + rdx]
 
-	cmp rsi, 1
+	cmp esi, 1
 	je .return
-	mov rsi, 1
+	mov esi, 1
 	jmp .convert
 .return:
 	inc [bytes_converted]
@@ -71,7 +71,7 @@ hex_to_byte:
 ; rsi: void* buf
 ; rdx: int len
 traverse:
-	xor rcx, rcx
+	xor ecx, ecx
 	xor r8, r8
 .check_character:
 	cmp rcx, rdx
@@ -82,7 +82,6 @@ traverse:
 	cmp BYTE [rdi + rcx], 10
 	je .continue
 
-	; todo: write new buffer to specified output file (argv[3])
 	push rdi
 	push rdx
 	push rsi
@@ -94,10 +93,9 @@ traverse:
 	pop rdx
 	pop rdi
 
-	; if there isn't another byte after this throw an error as hex should be two consecutive integers
-	inc rcx
+	inc ecx
 .continue:
-	inc rcx
+	inc ecx
 	inc r8
 	jmp .check_character
 .after_check_character:

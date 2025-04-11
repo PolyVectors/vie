@@ -1,3 +1,5 @@
+; Adapted from https://github.com/cj1128/tiny-x64-helloworld
+
 ; ELF Header
 7f 45 4c 46 02 01 01 00 ; e_ident
 00 00 00 00 00 00 00 00 ; reserved

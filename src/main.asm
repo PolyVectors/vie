@@ -61,7 +61,7 @@ _start:
 	lea rdi, [rdi + rax + 1]
 	mov rsi, O_WRONLY
 	or rsi, O_CREAT
-	mov rdx, RWXR__R__
+	mov edx, RWXR__R__
 	call fopen
 	push rax
 
@@ -78,12 +78,11 @@ _start:
 
 	call fclose
 
-	mov rdi, r13
+	lea rdi, [r13]
 	mov rsi, r15
 	call free
 
-	mov rdi, r14
-	mov rsi, r15
+	lea rdi, [r14]
 	call free
 
 	pop r8
