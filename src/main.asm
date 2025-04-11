@@ -70,12 +70,13 @@ _start:
 	mov rdx, r15
 	call traverse
 
+	mov eax, 1
 	pop rdi
-	call fclose
-
-	mov rdi, STDOUT_FILENO
 	lea rsi, [r13]
-	call fprint
+	movzx edx, [bytes_converted]
+	syscall
+
+	call fclose
 
 	mov rdi, r13
 	mov rsi, r15
@@ -88,8 +89,9 @@ _start:
 	pop r8
 	mov rdi, r8
 	call fclose
-	
-	jmp bad_usage
+
+	mov edi, 0
+	jmp exit
 help:
 	lea rsi, [_help_text]
 	mov edi, STDOUT_FILENO
